@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -25,6 +26,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initUI();
 
+        checkPreferences();
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //save the checkbox preferences
+                if(mCheckbox.isChecked())
+                {//set a checkbox when the application starts
+                    editor.putString(getString(R.string.checkbox), "True");
+                    //save the name & password
+                    editor.putString(getString(R.string.name), mName.getText().toString());
+                    editor.putString(getString(R.string.password), mPassword.getText().toString());
+                    editor.commit();
+
+                }else{
+                    editor.putString(getString(R.string.checkbox), "False");
+                    //save the name & password
+                    editor.putString(getString(R.string.name), "");
+                    editor.putString(getString(R.string.password), "");
+                    editor.commit();
+                }
+
+            }
+        });
 
 
     }
@@ -38,23 +62,6 @@ public class MainActivity extends AppCompatActivity {
         //sharedPreferences = getSharedPreferences("com.example.mypractice", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();//use to put items into the database
 
-        checkPreferences();
-        //save the checkbox preferences
-        if(mCheckbox.isChecked())
-        {//set a checkbox when the application starts
-            editor.putString(getString(R.string.checkbox), "True");
-            //save the name & password
-            editor.putString(getString(R.string.name), mName.getText().toString());
-            editor.putString(getString(R.string.password), mPassword.getText().toString());
-            editor.commit();
-
-        }else{
-            editor.putString(getString(R.string.checkbox), "False");
-            //save the name & password
-            editor.putString(getString(R.string.name), "");
-            editor.putString(getString(R.string.password), "");
-            editor.commit();
-        }
 
 
     }
