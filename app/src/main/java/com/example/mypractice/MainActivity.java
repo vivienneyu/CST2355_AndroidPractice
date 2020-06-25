@@ -6,76 +6,56 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String TAG = "MainActivity";
 
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
 
-    private EditText mName, mPassword;
-    private Button btnLogin;
-    private CheckBox mCheckbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initUI();
+        ListView mListView = findViewById(R.id.lv_theList);
+       Log.d(TAG, "onCreate: started.");
 
-        checkPreferences();
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //save the checkbox preferences
-                if(mCheckbox.isChecked())
-                {//set a checkbox when the application starts
-                    editor.putString(getString(R.string.checkbox), "True");
-                    //save the name & password
-                    editor.putString(getString(R.string.name), mName.getText().toString());
-                    editor.putString(getString(R.string.password), mPassword.getText().toString());
-                    editor.commit();
+       //Create the Person objects
+       Person john = new Person("John", "12-20-2010", "Male");
+       Person peter = new Person("Peter", "12-12-2012", "Male");
+       Person jane = new Person("Jane", "13-12-2011", "Female");
+        Person joe = new Person("Joe", "14-12-2011", "Female");
 
-                }else{
-                    editor.putString(getString(R.string.checkbox), "False");
-                    //save the name & password
-                    editor.putString(getString(R.string.name), "");
-                    editor.putString(getString(R.string.password), "");
-                    editor.commit();
-                }
+        ArrayList<Person> peopleList = new ArrayList<>();
+        peopleList.add(john);
+        peopleList.add(peter);
+        peopleList.add(jane);
+        peopleList.add(joe);
 
-            }
-        });
+        PersonListAdapter adapter = new PersonListAdapter(this, R.layout.list_item_layout, peopleList);
+        mListView.setAdapter(adapter);
 
-
-    }
-
-    public void initUI(){
-        mName = findViewById(R.id.et_name);
-        mPassword = findViewById(R.id.et_password);
-        btnLogin = findViewById(R.id.bt_login);
-        mCheckbox = findViewById(R.id.cb_remember);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        //sharedPreferences = getSharedPreferences("com.example.mypractice", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();//use to put items into the database
-
-
+//        ArrayList<String> names = new ArrayList<>();
+//        names.add("Vivi");
+//        names.add("Wiwi");
+//        names.add("Yiyi");
+//        names.add("Xixi");
+//        names.add("Zizi");
+//
+//        //this is a default adapter
+//        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.list_item_layout, names);
+//        list.setAdapter(adapter);adapter
 
     }
-    private void checkPreferences(){
-        String checkbox = sharedPreferences.getString(getString(R.string.checkbox), "False");
-        String name = sharedPreferences.getString(getString(R.string.name), "");
-        String password = sharedPreferences.getString(getString(R.string.password), "");
 
-        mName.setText(name);
-        mPassword.setText(password);
-        if(checkbox.equals("True")){
-            mCheckbox.setChecked(true);
-        }else
-            mCheckbox.setChecked(false);
-    }
+
 
 }

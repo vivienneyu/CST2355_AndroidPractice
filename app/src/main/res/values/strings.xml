@@ -1,6 +1,11 @@
 <resources>
+    <!--For Master Branch-->
     <string name="app_name">MyPractice</string>
     <string name="checkbox">com.example.mypractice.checkbox</string>
     <string name="name">com.example.mypractice.name</string>
     <string name="password">com.example.mypractice.password</string>
+
+    <!--For ListViews-->
+
+
 </resources>
