@@ -6,6 +6,27 @@
     <string name="password">com.example.mypractice.password</string>
 
     <!--For ListViews-->
+    <string-array name="titles">
+        <item>Cat 1</item>
+        <item>Cat 2</item>
+        <item>Cat 3</item>
+        <item>Cat 4</item>
+        <item>Cat 5</item>
+        <item>Cat 6</item>
+        <item>Cat 7</item>
+        <item>Cat 8</item>
+        <item>Cat 9</item>
+    </string-array>
 
-
+    <string-array name="descriptions">
+        <item>Cat 1 on the donut</item>
+        <item>Cat 2 on the donut</item>
+        <item>Cat 3 on the donut</item>
+        <item>Cat 4 on the donut</item>
+        <item>Cat 5 on the donut</item>
+        <item>Cat 6 on the donut</item>
+        <item>Cat 7 on the donut</item>
+        <item>Cat 8 on the donut</item>
+        <item>Cat 9 on the donut</item>
+    </string-array>
 </resources>
