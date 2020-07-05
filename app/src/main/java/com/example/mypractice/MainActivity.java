@@ -1,6 +1,6 @@
 package com.example.mypractice;
 /**
- * ListView with Image
+ * ListView with BaseAdapter
  */
 
 import androidx.annotation.NonNull;
@@ -16,7 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -48,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
         descriptions = res.getStringArray(R.array.descriptions);
 
         listView = findViewById(R.id.lv_theList);
-        MyAdapter myAdapter = new MyAdapter(this, titles, image, descriptions);
-        listView.setAdapter(myAdapter);
+        listView.setAdapter(new MyAdapter(this));
 
     }
 
@@ -58,93 +59,61 @@ public class MainActivity extends AppCompatActivity {
 
 /**
  * Custom the adapter
+ * 1. Create a class that extends BaseAdapter and implement all the methods
+ * 2. Maintain some arrray inside your BaseAdapter class that will contain all the data(image, title and descriptions)
+ * 3. Use the getView() to fill the data from your array inside the custom structure of that single row for each row
  */
-class MyAdapter extends ArrayAdapter<String>{
+class MyAdapter extends BaseAdapter {
+        ArrayList<SingleRow> list;
         Context context;
-        int[] images;
-        String[] titles, descriptions;
-
-
     // constructor
-    public MyAdapter(@NonNull Context context, String[] titles, int[] imgs, String[] descriptions) {
-        super(context, R.layout.layout_listview_item, R.id.tv_title, titles);
+    public MyAdapter( Context context) {
+       list= new ArrayList<SingleRow>();
+        /**The above line of code just create an object with nothing in it
+         * We need to get the titles, descriptions and images into a single row object
+         * Put the SingleRow object inside the arraylist
+         */
+       Resources res = context.getResources();
+       String[] title = res.getStringArray(R.array.titles);
+        String[] description = res.getStringArray(R.array.descriptions);
+       int[] image = {R.drawable.cat_d,R.drawable.cat_d, R.drawable.cat_d,
+                R.drawable.cat_d, R.drawable.cat_d, R.drawable.cat_d, R.drawable.cat_d, R.drawable.cat_d, R.drawable.cat_d};
+
+       for(int i = 0; i<9; i++){
+           list.add(new SingleRow(title[i], description[i], image[i]));
+       }
         this.context = context;
-        this.images = imgs;
-        this.titles = titles;
-        this.descriptions = descriptions;
+    }
+    /**u1, u2, u3, u4
+     * u1->title, description and image
+     * make a composite object to hold multiple elements
+     * We need to make a class to SingleRow
+     */
+    // return the numbers of
+    @Override
+    public int getCount() {
+        return list.size();
     }
 
-    /**Approach #1
-     * This first approach causes a lot of memories
-     * As user scrolls, many more objects are created
-     * A lot more Views are no longer seen and hence no longer used causing Garbage Collection
-     * Both object creation and Garbage collection use CPU heavily
-     * CPU runs on battery, so device power is drained faster and list is very slow
-     * Amount of heap memory per app is limited so your app may crash
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
-     */
-//    @NonNull
-//    @Override
-//    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View row =  inflater.inflate(R.layout.layout_listview_item, parent, false);
-//
-//        ImageView myImage = row.findViewById(R.id.iv_images);
-//        TextView myTitle = row.findViewById(R.id.tv_title);
-//        TextView myDescription = row.findViewById(R.id.tv_description);
-//
-//        myImage.setImageResource(images[position]);
-//        myTitle.setText(titles[position]);
-//        myDescription.setText(descriptions[position]);
-//
-//        return row;
-//    }
+    @Override
+    public Object getItem(int position) {
+        return list.get(position);
+    }
 
-    /**Approach #2
-     * the param View convertView is null the first time your row is created,
-     * Means that no previous object which can be recycled, otherwise it has a value
-     * After it's created, it get recycled
-     */
-//    @NonNull
-//    @Override
-//    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//        /**These two lines of codes are the most expensive operation
-//         * We wanna make sure that these happens only when the row is created for the first time
-//         * When we recycle the View, we don't want these two lines runs again
-//         *
-//         *         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//         *         View row =  inflater.inflate(R.layout.layout_listview_item, parent, false);
-//         */
-//        View row = convertView;
-//        if(row == null) {
-//            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            inflater.inflate(R.layout.layout_listview_item, parent, false);
-//        }
-//
-//        ImageView myImage = row.findViewById(R.id.iv_images);
-//        TextView myTitle = row.findViewById(R.id.tv_title);
-//        TextView myDescription = row.findViewById(R.id.tv_description);
-//
-//        myImage.setImageResource(images[position]);
-//        myTitle.setText(titles[position]);
-//        myDescription.setText(descriptions[position]);
-//
-//        return row;
-//    }
+    //this is useful in the database, it returns the index of the item in the database
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-    /**Approach #3
-     * Use the viewHolder to optimize the process
-     * Don't call findViewById() multiple times, do it only when new rows created, it searches for your View
-     * object in the entire hierarchy
+    /**Get the root view
+     * Use the root view to find other views
+     * Set the values
      */
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        //When creating a row for the 1st time, perform the inflation, initialize the ViewHolder
 
         View row = convertView;
         MyViewHolder holder;
@@ -165,9 +134,11 @@ class MyAdapter extends ArrayAdapter<String>{
         /**set the values for the Views inside your row by accessing them through your Viewholder
          * The values must be set everytime
          */
-        holder.myImage.setImageResource(images[position]);
-        holder.myTitle.setText(titles[position]);
-        holder.myDescription.setText(descriptions[position]);
+
+        SingleRow sr = list.get(position);
+        holder.myDescription.setText(sr.description);
+        holder.myTitle.setText(sr.title);
+        holder.myImage.setImageResource(sr.image);
 
         return row;
     }
@@ -190,3 +161,14 @@ class MyViewHolder{
     }
 
 }//end of MyViewHolder
+
+class SingleRow{
+    String title, description;
+    int image;
+
+    SingleRow(String title, String description, int image){
+        this.description = description;
+        this.title = title;
+        this.image = image;
+    }
+}
