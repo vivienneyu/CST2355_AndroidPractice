@@ -3,32 +3,13 @@ package com.example.mypractice;
  * ListView with BaseAdapter
  */
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Communicator{
 
 
     @Override
@@ -39,5 +20,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void respond(String data) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentB frag_b = (FragmentB)manager.findFragmentById(R.id.fragment2) ;
+       frag_b.changeText(data);
+    }
 }//end of MainActivity
 

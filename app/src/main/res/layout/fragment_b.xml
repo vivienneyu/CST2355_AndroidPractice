@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#cdcdcd"
+    tools:context=".FragmentB"
+    android:id="@+id/frag_b">
+
+
+        <TextView
+            android:layout_margin="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fragment B"
+            android:textAlignment="center"
+            android:background="@color/colorPrimary"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/text_view"
+            android:layout_gravity="left|center_vertical"
+            tools:ignore="RtlCompat" />
+
+</RelativeLayout>

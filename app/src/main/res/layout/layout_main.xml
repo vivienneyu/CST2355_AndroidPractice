@@ -2,13 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground1">
+    android:background="@color/colorBackground1"
+    android:id="@+id/my_layout">
+
+<!--This is the way using adding fragment to the xml file-->
+<!--    <fragment-->
+<!--        android:id="@+id/fragment"-->
+<!--        android:name="com.example.mypractice.FragmentA-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content" />-->
 
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.example.mypractice.MyFragment"
+        android:name="com.example.mypractice.FragmentA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <fragment
+        android:id="@+id/fragment2"
+        android:name="com.example.mypractice.FragmentB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment"
+        android:layout_marginTop="40dp"/>
 </RelativeLayout>
