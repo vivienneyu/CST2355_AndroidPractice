@@ -29,4 +29,6 @@
         <item>Cat 8 on the donut</item>
         <item>Cat 9 on the donut</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
