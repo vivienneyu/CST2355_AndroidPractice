@@ -6,51 +6,44 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 
-public class FragmentA extends Fragment implements View.OnClickListener{
+public class FragmentA extends Fragment implements AdapterView.OnItemClickListener {
+    private static final String TAG ="FragmentA";
+    ListView listView;
+    Communicator communicator;
 
-    Button button;
-    int counter = 0;
-    Communicator comm;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if(savedInstanceState == null){
-            counter =0;
-        }else {
-           counter= savedInstanceState.getInt("counter", 0);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView was called");
         return inflater.inflate(R.layout.fragment_a, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        comm = (Communicator)getActivity();
-        button = getActivity().findViewById(R.id.btn);
-        button.setOnClickListener(this);
+        Log.d(TAG, "onActivityCreated was called");
+        communicator = (Communicator)getActivity();
+        listView = getActivity().findViewById(R.id.list_view);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.titles, android.R.layout.simple_list_item_1);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("counter", counter);
-    }
 
     @Override
-    public void onClick(View v) {
-        counter++;
-        comm.respond("The button was clicked " + counter + " times");
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        communicator.respond(position);
+        Log.d(TAG, "onItemClick was called");
     }
 }

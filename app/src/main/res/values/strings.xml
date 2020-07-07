@@ -7,27 +7,19 @@
 
     <!--For ListViews-->
     <string-array name="titles">
-        <item>Cat 1</item>
-        <item>Cat 2</item>
-        <item>Cat 3</item>
-        <item>Cat 4</item>
-        <item>Cat 5</item>
-        <item>Cat 6</item>
-        <item>Cat 7</item>
-        <item>Cat 8</item>
-        <item>Cat 9</item>
+        <item>Activities</item>
+        <item>Services</item>
+        <item>Content Providers</item>
+        <item>Intents and Intent Filters</item>
+
     </string-array>
 
     <string-array name="descriptions">
-        <item>Cat 1 on the donut</item>
-        <item>Cat 2 on the donut</item>
-        <item>Cat 3 on the donut</item>
-        <item>Cat 4 on the donut</item>
-        <item>Cat 5 on the donut</item>
-        <item>Cat 6 on the donut</item>
-        <item>Cat 7 on the donut</item>
-        <item>Cat 8 on the donut</item>
-        <item>Cat 9 on the donut</item>
+        <item>"The Activity class is a crucial component of an Android app, and the way activities are launched and put together is a fundamental part of the platform's application model. "</item>
+        <item>"A Service is an application component representing either an application's desire to perform a longer-running operation while not interacting with the user or to supply functionality for other applications to use."</item>
+        <item>"Content providers can help an application manage access to data stored by itself, stored by other apps, and provide a way to share data with other apps."</item>
+        <item>"An Intent is a messaging object you can use to request an action from another app component."</item>
+
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

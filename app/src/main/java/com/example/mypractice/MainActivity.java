@@ -5,26 +5,28 @@ package com.example.mypractice;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity implements Communicator{
-
-
+    private static final String TAG = "MainActivity";
+    FragmentB f2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, " onCreate was called");
         setContentView(R.layout.layout_main);
 
     }
 
 
     @Override
-    public void respond(String data) {
+    public void respond(int position) {
+        Log.d(TAG, " respond was called");
         FragmentManager manager = getSupportFragmentManager();
-        FragmentB frag_b = (FragmentB)manager.findFragmentById(R.id.fragment2) ;
-       frag_b.changeText(data);
+        f2 =(FragmentB) manager.findFragmentById(R.id.fragment2);
+        f2. changeData(position);
     }
 }//end of MainActivity
 
