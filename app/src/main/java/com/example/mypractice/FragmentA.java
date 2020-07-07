@@ -2,6 +2,7 @@ package com.example.mypractice;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -18,6 +19,16 @@ public class FragmentA extends Fragment implements View.OnClickListener{
     Communicator comm;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState == null){
+            counter =0;
+        }else {
+           counter= savedInstanceState.getInt("counter", 0);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_a, container, false);
@@ -29,6 +40,12 @@ public class FragmentA extends Fragment implements View.OnClickListener{
         comm = (Communicator)getActivity();
         button = getActivity().findViewById(R.id.btn);
         button.setOnClickListener(this);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("counter", counter);
     }
 
     @Override
