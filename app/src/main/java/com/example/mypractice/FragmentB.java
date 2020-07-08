@@ -38,7 +38,7 @@ public class FragmentB extends Fragment {
     public void changeData(int position){
         Log.d(TAG, "changeData was called");
         Resources resources = getResources();
-        String[] descriptions = resources.getStringArray(R.array.descriptions);
+        String[] descriptions = resources.getStringArray(R.array.descriptions);//get the data
         textView.setText(descriptions[position]);
     }
 

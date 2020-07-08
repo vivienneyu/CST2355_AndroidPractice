@@ -3,19 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground1"
-    android:id="@+id/my_layout">
+    android:id="@+id/my_layout"
+    android:orientation="vertical">
 
-<!--    <fragment-->
-<!--        android:id="@+id/fragment1"-->
-<!--        android:name="com.example.mypractice.FragmentA"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content" />-->
+    <fragment
+        android:id="@+id/fragment1"
+        android:name="com.example.mypractice.FragmentA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
 
-<!--    <fragment-->
-<!--        android:id="@+id/fragment2"-->
-<!--        android:name="com.example.mypractice.FragmentB"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/fragment1"-->
-<!--        android:layout_marginTop="40dp"/>-->
+        />
+
+    <fragment
+        android:id="@+id/fragment2"
+        android:name="com.example.mypractice.FragmentB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_below="@+id/fragment1"
+        android:layout_marginTop="20dp"
+        />
 </RelativeLayout>

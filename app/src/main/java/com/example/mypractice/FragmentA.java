@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 
 public class FragmentA extends Fragment implements AdapterView.OnItemClickListener {
+
     private static final String TAG ="FragmentA";
     ListView listView;
     Communicator communicator;
@@ -48,6 +49,10 @@ public class FragmentA extends Fragment implements AdapterView.OnItemClickListen
         communicator.respond(position);
         Log.d(TAG, "onItemClick was called");
     }
+
+  public void setCommunicator(Communicator communicator){
+        this.communicator = communicator;
+  }
 }
 
 /**This is a better object-oriented design pattern

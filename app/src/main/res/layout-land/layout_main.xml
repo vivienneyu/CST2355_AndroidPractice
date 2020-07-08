@@ -8,7 +8,7 @@
     >
 
     <fragment
-        android:id="@+id/fragment"
+        android:id="@+id/fragment1"
         android:name="com.example.mypractice.FragmentA"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
