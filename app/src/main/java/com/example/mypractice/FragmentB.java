@@ -23,14 +23,15 @@ public class FragmentB extends Fragment {
 
         Log.d(TAG, "onCreateView was called");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_b, container, false);
-
+         View view = inflater.inflate(R.layout.fragment_b, container, false);
+        textView = view.findViewById(R.id.text_view);
+        return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        textView = getActivity().findViewById(R.id.text_view);
+
         Log.d(TAG, "onActivityCreated was called");
     }
 

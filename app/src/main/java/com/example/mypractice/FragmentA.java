@@ -26,18 +26,20 @@ public class FragmentA extends Fragment implements AdapterView.OnItemClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView was called");
-        return inflater.inflate(R.layout.fragment_a, container, false);
+      View view = inflater.inflate(R.layout.fragment_a, container, false);
+        listView = view.findViewById(R.id.list_view);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.titles, android.R.layout.simple_list_item_1);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
+        return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log.d(TAG, "onActivityCreated was called");
-        communicator = (Communicator)getActivity();
-        listView = getActivity().findViewById(R.id.list_view);
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.titles, android.R.layout.simple_list_item_1);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
+
+
     }
 
 
@@ -46,4 +48,16 @@ public class FragmentA extends Fragment implements AdapterView.OnItemClickListen
         communicator.respond(position);
         Log.d(TAG, "onItemClick was called");
     }
+}
+
+/**This is a better object-oriented design pattern
+ * The Communicator interface is not exposed to FragmentB, principle of least privilege
+ */
+ interface Communicator {
+    /***
+     * This method is responsible for carrying data from FragmentA to FragmentB
+     *
+     * @param position
+     */
+    public void respond(int position);
 }
