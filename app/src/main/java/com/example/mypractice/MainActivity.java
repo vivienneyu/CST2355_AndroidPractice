@@ -22,27 +22,31 @@ public class MainActivity extends AppCompatActivity implements Communicator{
         super.onCreate(savedInstanceState);
         Log.d(TAG, " onCreate was called");
         setContentView(R.layout.layout_main);
-        manager = getSupportFragmentManager();
 
+        manager = getSupportFragmentManager();
         /**In both portrait and landscape mode, the fragment A is always there
          * We need to initialize the f1 first here
          */
 
         f1 = (FragmentA)manager.findFragmentById(R.id.fragment1);
         f1.setCommunicator(this);
+
+
     }
 
 
     @Override
     public void respond(int position) {
         Log.d(TAG, " respond was called");
-        f2 =(FragmentB) manager.findFragmentById(R.id.fragment2);
+
         /**if f2 is not null and is visible, that means we can see the fragment2 too
          * that means we are in the landscape mode.
          * Otherwise we are inside the portrait mode
          */
+
+        f2 =(FragmentB) manager.findFragmentById(R.id.fragment2);
         if (f2 != null && f2.isVisible()){
-            f2. changeData(position);//change the data of the activity
+            f2.changeData(position);//change the data of the activity
 
         }else{
             Intent intent = new Intent(this, AnotherActivity.class);
